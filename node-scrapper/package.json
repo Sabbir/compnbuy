@@ -1,0 +1,22 @@
+{
+  "name": "scrapper",
+  "version": "1.0.0",
+  "description": "scrap site",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon src/index.js"
+  },
+  "author": "Sabbir",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "cheerio": "^1.0.0-rc.12",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "got": "^11.4.0",
+    "helmet": "^6.0.0",
+    "morgan": "^1.10.0",
+    "pretty": "^2.0.0"
+  }
+}
