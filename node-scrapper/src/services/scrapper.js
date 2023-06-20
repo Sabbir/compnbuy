@@ -9,7 +9,7 @@ const got = require('got');
 
 
 const dAPI = 'https://www.daraz.com.bd/catalog/?q='
-const oAPI = 'https://www.othoba.com/src?q='
+const oAPI = 'https://www.vibrantbd.com/search?q='
 const biAPI = 'https://blucheez.com.bd/search?page=1&q='
 const gAPI = 'https://www.gentlepark.com/product-search.php?searchkeyword='
 
@@ -154,20 +154,22 @@ const scrapperScript = async (pr) => {
         $ = cheerio.load(dataA) 
         
         var dt = $("div > .product-item")
-
+        
               
                   
         dt.each(el=>{
           const scrapItemO = { title: '', price: '', url: '', img: ''}
            
-          let t = $(dt[el]).find('h2 a').text()
-          let u = $(dt[el]).find('h2 a').attr('href')
-          let p = $(dt[el]).find(".actual-price").text()
-          let img = $(dt[el]).find("a img").attr("data-src")
-
+          let t = $(dt[el]).find('a img').attr('alt')
+          let u = $(dt[el]).find('a').attr('href')
+          let p = $(dt[el]).find(".price").text()
+          let img = $(dt[el]).find("a div").children("img").attr("data-src")
+          console.log(p)
+          img = img.replace('{width}','400')
+          p = p.replace('Sale price','')
           scrapItemO.title = t
           scrapItemO.price = p
-          scrapItemO.url = "https://www.othoba.com"+u
+          scrapItemO.url = "https://www.vibrantbd.com"+u
           scrapItemO.img = img 
 
 
@@ -183,7 +185,7 @@ const scrapperScript = async (pr) => {
         scrapedDataL.push(scrapItemO)
 
       }
-        js.push({name:'Othoba', p: scrapedDataO })
+        js.push({name:'Vibrantbd', p: scrapedDataO })
 
 
       
