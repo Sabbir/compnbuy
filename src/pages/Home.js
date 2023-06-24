@@ -14,9 +14,9 @@ function classNames(...classes) {
 }
 
 const navigation = [
-  { name: 'Search', id:1, href: '#', current: true, disb: false },
-  { name: 'Comparison', id:3, href: '#', current: false, disb: true },
-  { name: 'Reports',  id:4, href: '#', current: false, disb: true },
+  { name: 'Groceries', id:0, href: '/#', current: true, disb: false },
+    { name: 'Clothes', id:1, href: '/clothes/#', current: false, disb: true },
+    { name: 'Electronics', id:2, href: '/electronics/#', current: false, disb: true },
 ]
 
 const user = {
@@ -184,18 +184,47 @@ class Home extends React.Component{
                     <div className="ml-4 flex items-center md:ml-6">
                     <button
                         type="button"
+                        href="#"
                         className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                         onClick={() => {
-                          this.setState({
-                            isEnable:true,
-                            title:'About',
+                          (!isSearch)? (
+                          this.setState({ status: true, id:1 })
+                          ):(
                             
-                          });
+                            this.setState({ status: false, id:3 })
+                          
+                            
+                            
+                          )
+                          
+                          
                         }
                       }
                       >
                         <span className="sr-only">View notifications</span>
-                        About
+                        Comparison
+                    </button>
+                    <button
+                        type="button"
+                        href="#"
+                        className="rounded-full bg-gray-800 p-1 ml-4 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                        onClick={() => {
+                          (!isSearch)? (
+                          this.setState({ status: true, id:1 })
+                          ):(
+                            
+                            this.setState({ status: false, id:4 })
+                          
+                            
+                            
+                          )
+                          
+                          
+                        }
+                      }
+                      >
+                        <span className="sr-only">View notifications</span>
+                        Report
                     </button>
                     
                     </div>
