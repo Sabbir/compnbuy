@@ -19,13 +19,6 @@ const navigation = [
     { name: 'Electronics', id:2, href: '/electronics/#', current: false, disb: true },
 ]
 
-const user = {
-  name: 'Sabbir Hossain',
-  email: 'sabbirhs@yahoo.com',
-  imageUrl:
-    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-}
-
 
 class Home extends React.Component{
   constructor(props) {
@@ -63,15 +56,7 @@ class Home extends React.Component{
       
       if(isSearch){
         
-        if(products[0].p[0].price==='ERROR'){
-          console.log("found error")
-          this.setState({ 
-            isSearch:false,
-            isLoaded:false,
-            products: [],
-            msg:"Products not found. something is wrong "
-        }); 
-        }
+        
         // products.forEach(el => {
                
         //        console.log(el)
@@ -93,8 +78,8 @@ class Home extends React.Component{
           // Do something with value
           console.log("got this:", q);
 
-        //  getProducts("http://localhost/api/v1/products/"+ q)
-        getProducts("https://comp-nbuy.com/load/api/v1/products/"+ q)  
+          getProducts("http://localhost/load/api/v1/products/"+ q)
+       // getProducts("https://comp-nbuy.com/load/api/v1/products/"+ q)  
 
           
         }

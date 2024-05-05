@@ -17,14 +17,14 @@ class Products extends React.Component{
     render(){
         let {d} = this.state;
         d= this.props.data;
-      // console.log(d);
+       console.log(d);
         return (
             
           <div>{
             d!== undefined?(
                               
                 d.map((da)=> (
-                 
+                da.price===''?<p></p>:( 
                 <a href={da.url} target="_blank"  rel="noreferrer" className='my-2' >
                 <section class="hero container max-w-screen-lg mx-auto pb-4 flex justify-center mt-8">
                   <img className="hover:grow object-contain hover:shadow-lg h-48 w-40" src={da.img} alt="Product"  />
@@ -36,11 +36,11 @@ class Products extends React.Component{
                   </svg>
                 </div>
                 <section class="hero container max-w-screen-lg mx-auto pb-10 flex justify-center">
-                <p className="pt-3 text-gray-900 max-w-screen-lg font-bold justify-center"> {da.price===''?'Out of stock': da.price}</p>
+                <p className="pt-3 text-gray-900 max-w-screen-lg font-bold justify-center"> {da.price}</p>
                 </section>
                 
               </a>
-              
+                )
                   )
                   )
             ):(

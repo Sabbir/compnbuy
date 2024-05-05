@@ -50,8 +50,8 @@ function classNames(...classes) {
           // Do something with value
           console.log("got this:", q);
 
-       //   getProducts("http://localhost/api/v1/gproducts/"+ q)
-         getProducts("https://comp-nbuy.com/load/api/v1/gproducts/"+ q)  
+          getProducts("http://localhost/load/api/v1/gproducts/"+ q)
+      //   getProducts("https://comp-nbuy.com/load/api/v1/gproducts/"+ q)  
 
           
         }

@@ -9,15 +9,15 @@ const got = require('got');
 
 
 const dAPI = 'https://www.daraz.com.bd/catalog/?q='
-const sAPI = 'https://www.smartbd.com/catalogsearch/result/?q='
-const cApi = 'https://www.computervillage.com.bd/search?q='
+const tAPI = 'https://www.techlandbd.com/index.php?route=product/search&search='
+const sApi = 'https://www.startech.com.bd/product/search?search='
 const fApi = 'https://www.globalbrand.com.bd/index.php?route=product/search&search='
 
 const scrapperScript = async (pr) => {
     try {
         let daAPI = dAPI + pr
-        let stAPI = sAPI + pr
-        let cvAPI = cApi + pr 
+        let teAPI = tAPI + pr
+        let cvAPI = sApi + pr 
         let foAPI = fApi + pr
 
         pr = pr.toLowerCase()
@@ -72,36 +72,29 @@ const scrapperScript = async (pr) => {
       
       //techlandBD
       try{
-        let res = await got(stAPI).text()
-        console.log(stAPI)
-        
-        
-         
-            
+        let res = await got(teAPI).text()
+       
               // writing the response to a file named data.html
               $ = cheerio.load(res) 
-              var te = $("div > .products")
-
-              console.log(te)
+              var te = $("div > .product-layout")
               
               
               
               te.each(el=>{
-                console.log(el) 
                 const scrapItemS = { title: '', price: '', url: '', img: ''}
                  
                 let t = $(te[el]).find('a img').attr('alt')
-                let u = $(te[el]).find('a').attr('href')
-                let p = $(te[el]).siblings("div > .price-box").find(".price").text()
+                let u = $(te[el]).find('a.product-img').attr('href')
+                let p = $(te[el]).find("div > .price").find(".price-new").text()
                 let img = $(te[el]).find("a img").attr("src")
+
+                p = p==''?$(te[el]).find("div > .price").find(".price-normal").text():p
 
                 p = p.replace('৳',' Tk')
                 scrapItemS.title = t
                 scrapItemS.price = p
                 scrapItemS.url = u
                 scrapItemS.img = img 
-      
-                console.log(u)
                 scrapedDataT.push(scrapItemS)
                 
                 
@@ -113,20 +106,20 @@ const scrapperScript = async (pr) => {
         const scrapItemS = { title: "Something Wrong, please try again", price:'0.00', url: '', img: ''}
         scrapedDataT.push(scrapItemS)
         
-      }  
-      js.push({name:'SmartBD',p: scrapedDataT })
+      } 
+      js.push({name:'TechlandBD',p: scrapedDataT })
 
       //computervillage
       try{
         let res = await got(cvAPI).text()
-       // console.log(res)
+        console.log(res)
          
         
          
             
               // writing the response to a file named data.html
               $ = cheerio.load(res) 
-              var te = $("div > .grid-view-item")
+              var te = $("div > .p-item")
               
               
               
@@ -136,8 +129,8 @@ const scrapperScript = async (pr) => {
                  
                 let t = $(te[el]).find('a img').attr('alt')
                 let u = $(te[el]).find('a').attr('href')
-                let p = $(te[el]).find(".money").text()
-                let img = $(te[el]).find("a").children("img").attr("data-src")
+                let p = $(te[el]).find(".p-item-price").text()
+                let img = $(te[el]).find("a").children("img").attr("src")
                 
 
                 p = p.replace('৳','Tk ')
@@ -154,12 +147,13 @@ const scrapperScript = async (pr) => {
               )        
       }
       catch(er){
-        console.log(er)
+        //console.log(er)
         const scrapItemC = { title: "Something Wrong, please try again", price: 'ERROR', url: '', img: ''}
         scrapedDataC.push(scrapItemC)
         
-      }  
-      js.push({name:'ComputerVillage',p: scrapedDataC })
+      }
+      console.log(scrapedDataC)  
+      js.push({name:'StarTechBD',p: scrapedDataC })
 
       //GlobalBrand
       try{

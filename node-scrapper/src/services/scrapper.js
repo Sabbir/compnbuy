@@ -33,7 +33,7 @@ const scrapperScript = async (pr) => {
           
         
         let res = await got(daAPI).text()
-       // console.log(res)
+        console.log(res)
          
         
          
@@ -112,6 +112,7 @@ const scrapperScript = async (pr) => {
       
       try{
         const dataB  = await got(blAPI).text()
+        console.log(dataB)
 
         $ = cheerio.load(dataB, { xmlMode: true}) 
          
@@ -122,16 +123,17 @@ const scrapperScript = async (pr) => {
           
           let t = $(dt[el]).children('div > .product-info').find('h3').text()
           let u = $(dt[el]).find("div > .product-image").attr("data-rendert4s")
-          let p = $(dt[el]).find(".price").html().replace(/<del>.*<ins>/,'').replace('</ins>', '')
+          let p = $(dt[el]).find(".price > ins").html()
           let img = $(dt[el]).find("img").attr("src")
+          console.log(img)
+
 
           
           scrapItemB.title = t
           scrapItemB.price = p
           scrapItemB.url = "https://blucheez.com.bd"+u
-          scrapItemB.img = img 
+          scrapItemB.img = "https://cdn.shopify.com/s/files/1/0585/0077/6131/"+img 
           
-
           scrapedDataB.push(scrapItemB)
           
          }
@@ -164,7 +166,6 @@ const scrapperScript = async (pr) => {
           let u = $(dt[el]).find('a').attr('href')
           let p = $(dt[el]).find(".price").text()
           let img = $(dt[el]).find("a div").children("img").attr("data-src")
-          console.log(p)
           img = img.replace('{width}','400')
           p = p.replace('Sale price','')
           scrapItemO.title = t
