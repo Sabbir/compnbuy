@@ -31,7 +31,7 @@ const scrapperScript = async (pr) => {
       const scrapedDataC = []
       const scrapedDataF = []
       const js = []
-      
+      /*
       try{
         let res = await got(daAPI).text()
        // console.log(res)
@@ -69,7 +69,7 @@ const scrapperScript = async (pr) => {
         
       }  
       js.push({name:'Daraz',p: scrapedDataD })
-      
+      */
       //techlandBD
       try{
         let res = await got(teAPI).text()
@@ -112,7 +112,7 @@ const scrapperScript = async (pr) => {
       //computervillage
       try{
         let res = await got(cvAPI).text()
-        console.log(res)
+        //console.log(res)
          
         
          
@@ -158,7 +158,7 @@ const scrapperScript = async (pr) => {
       //GlobalBrand
       try{
         let res = await got(foAPI).text()
-       // console.log(res)
+        //console.log(res)
          
         
          
@@ -166,14 +166,14 @@ const scrapperScript = async (pr) => {
               // writing the response to a file named data.html
               $ = cheerio.load(res) 
               var te = $("div > .product-layout")
-              
+
               te.each(el=>{
                 const scrapItemF = { title: '', price: '', url: '', img: ''}
                  
-                let t = $(te[el]).find('a img').attr('alt')
+                let t = $(te[el]).find('div amp-img').attr('alt')
                 let u = $(te[el]).find('a').attr('href')
                 let p = $(te[el]).find(".price").text()
-                let img = $(te[el]).find("a img").attr("src")
+                let img = $(te[el]).find("div amp-img").attr("src")
                 
                 p = p.replace('৳','Tk ')
                 scrapItemF.title = t

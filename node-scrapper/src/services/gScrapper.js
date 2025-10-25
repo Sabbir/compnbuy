@@ -8,7 +8,7 @@ const { json } = require('body-parser')
 const got = require('got');
 
 
-const dAPI = 'https://dailyshoppingbd.com/?match=all&subcats=Y&search_performed=Y&dispatch=products.search&q='
+const dAPI = 'https://www.shwapno.com/search?q='
 const bAPI = 'https://www.thebasketbd.com/catalogsearch/result/?q='
 const cApi = 'https://www.computervillage.com.bd/search?q='
 const fApi = 'https://www.globalbrand.com.bd/index.php?route=product/search&search='
@@ -31,7 +31,7 @@ const scrapperScript = async (pr) => {
         //dailyshopping
       try{
         let res = await got(dsAPI).text()
-        console.log(dsAPI)
+        console.log(res)
          
         
          
@@ -89,7 +89,7 @@ const scrapperScript = async (pr) => {
             //  console.log($(te).html())  
                   
               te.each(el=>{
-                console.log($(te[el]).html())
+               
                 const scrapItemB = { title: '', price: '', url: '', img: ''}
                 let t = $(te[el]).find('.product-item-name').text()
                 let u = $(te[el]).find('a').attr('href')

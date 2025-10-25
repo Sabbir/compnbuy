@@ -28,12 +28,13 @@ const scrapperScript = async (pr) => {
       const scrapedDataB = []
       const scrapedDataW = []
       const js = []
-      
+     /* 
       try{
           
         
         let res = await got(daAPI).text()
-        console.log(res)
+        console.log("\nDaraz\n")
+       // console.log(res)
          
         
          
@@ -42,7 +43,7 @@ const scrapperScript = async (pr) => {
               $ = cheerio.load(res) 
               var te = $("head > script")
               
-              
+              console.log(te)
               
               const DataBooks = te[3].lastChild.data.replace("window.pageData=","")
             
@@ -63,12 +64,12 @@ const scrapperScript = async (pr) => {
       }
       catch(er){
         console.log(er)
-        const scrapItemD = { title: "Something Wrong, please try again", price: 'ERROR', url: '', img: ''}
+        const scrapItemD = { title: "Something Wrong, can not show products.", price: 'ERROR', url: '', img: ''}
         scrapedDataD.push(scrapItemD)
         
       }  
       js.push({name:'Daraz',p: scrapedDataD })
-      
+      */
       //gentlepark
       
       try{
@@ -94,6 +95,7 @@ const scrapperScript = async (pr) => {
           scrapItemG.price = p.replace("Tk.","BDT")
           scrapItemG.url = u
           scrapItemG.img = img 
+         // console.log(scrapItemG)
                  
           scrapedDataW.push(scrapItemG)
           
@@ -112,27 +114,28 @@ const scrapperScript = async (pr) => {
       
       try{
         const dataB  = await got(blAPI).text()
-        console.log(dataB)
+     //   console.log(dataB)
 
         $ = cheerio.load(dataB, { xmlMode: true}) 
          
-        var dt = $("div > .product-inner")
-              
+        var dt = $("div > .t4s-product-wrapper")
+        //console.log(dt)              
         dt.each(el=>{
           const scrapItemB = { title: '', price: '', url: '', img: ''}
           
-          let t = $(dt[el]).children('div > .product-info').find('h3').text()
-          let u = $(dt[el]).find("div > .product-image").attr("data-rendert4s")
-          let p = $(dt[el]).find(".price > ins").html()
-          let img = $(dt[el]).find("img").attr("src")
-          console.log(img)
+          let t = $(dt[el]).children('div > .t4s-product-info').find('h3').text()
+          let u = $(dt[el]).find("div > .t4s-product-info").find('a').attr("href")
+          let p = $(dt[el]).find(".t4s-product-price").text()
+          let img = $(dt[el]).find("img").attr("data-src")
+          img = img.replace('&width=1','')
+         
 
 
           
           scrapItemB.title = t
           scrapItemB.price = p
           scrapItemB.url = "https://blucheez.com.bd"+u
-          scrapItemB.img = "https://cdn.shopify.com/s/files/1/0585/0077/6131/"+img 
+          scrapItemB.img = img 
           
           scrapedDataB.push(scrapItemB)
           
@@ -149,9 +152,10 @@ const scrapperScript = async (pr) => {
       
       
       
-      //Othoba
+      //Vibrant
       try{
         const dataA  = await got(otAPI).text()
+        //console.log(dataA)
 
         $ = cheerio.load(dataA) 
         
@@ -161,11 +165,10 @@ const scrapperScript = async (pr) => {
                   
         dt.each(el=>{
           const scrapItemO = { title: '', price: '', url: '', img: ''}
-           
           let t = $(dt[el]).find('a img').attr('alt')
           let u = $(dt[el]).find('a').attr('href')
           let p = $(dt[el]).find(".price").text()
-          let img = $(dt[el]).find("a div").children("img").attr("data-src")
+          let img = $(dt[el]).find("a img").attr("src")
           img = img.replace('{width}','400')
           p = p.replace('Sale price','')
           scrapItemO.title = t
@@ -183,7 +186,7 @@ const scrapperScript = async (pr) => {
       catch(er){
         console.log(er)
         const scrapItemO = { title: er.message, price: '', url: '', img: ''}
-        scrapedDataL.push(scrapItemO)
+        scrapedDataO.push(scrapItemO)
 
       }
         js.push({name:'Vibrantbd', p: scrapedDataO })
